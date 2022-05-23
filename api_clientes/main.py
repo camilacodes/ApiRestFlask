@@ -1,4 +1,6 @@
 import pymysql
+import json
+import requests
 from auth import auth_required
 from app import app
 from config import mysql
@@ -116,6 +118,33 @@ def delete(id):
 		cursor.close() 
 		conn.close()
 
+
+@app.route('/cliente/address/<int:id>')
+def client_address(id):
+    
+    r = requests.get('http://127.0.0.1:5001/address', auth=('admin', '123'))
+   
+    text = r.text
+    data =json.loads(text)
+    
+    lista = []
+    for endereco in data:
+        if endereco['idcliente'] == id:
+                lista.append(endereco)
+    try:  
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT id, name, email, cpf, tel, age FROM cliente WHERE id=%s", id)
+        cliRow = cursor.fetchall()  
+        response = jsonify(cliRow, lista)
+        response.status_code == 200
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
+   
 
 @app.errorhandler(404)
 def showMessage(error=None):

@@ -1,3 +1,5 @@
+from crypt import methods
+import json
 from app import app
 import pymysql
 from auth import auth_required
@@ -16,12 +18,12 @@ def create_address():
         _number = _json['number']
         _city = _json['city']
         _country = _json['country']
-        _clientkey = _json['clientkey']
-        if _street and _number and _city and _country and _clientkey and request.method == 'POST':
+        _idcliente = _json['idcliente']
+        if _street and _number and _city and _country and _idcliente and request.method == 'POST':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            sqlQuery = "INSERT INTO address(street, number, city, country, clientkey) VALUES(%s,%s, %s, %s, %s)"
-            bindData = (_street, _number, _city, _country, _clientkey)
+            sqlQuery = "INSERT INTO address(street, number, city, country, idcliente) VALUES(%s,%s, %s, %s, %s)"
+            bindData = (_street, _number, _city, _country, _idcliente)
             cursor.execute(sqlQuery, bindData)
             conn.commit()
             response = jsonify('Endereço adicionado!')
@@ -61,7 +63,7 @@ def address_detail(id_address):
     try:  
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT id_address, street, number, city, country, clientkey FROM address WHERE id_address=%s", id_address)
+        cursor.execute("SELECT id_address, street, number, city, country, idcliente FROM address WHERE id_address=%s", id_address)
         cliRow = cursor.fetchall()  
         response = jsonify(cliRow)
         response.status_code == 200
@@ -85,12 +87,12 @@ def update_address():
         _number = _json['number']
         _city = _json['city']
         _country = _json['country']
-        _clientkey  = _json['clientkey']
+        _idcliente  = _json['idcliente']
         if _street and _number and _city and _country and _id_address and request.method == 'PUT':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            sqlQuery = "UPDATE address SET street=%s, number=%s, city=%s, country=%s clientkey=%s WHERE id_address=%s"
-            bindData = (_street, _number, _city, _country, _id_address, _clientkey)
+            sqlQuery = "UPDATE address SET street=%s, number=%s, city=%s, country=%s idcliente=%s WHERE id_address=%s"
+            bindData = (_street, _number, _city, _country, _id_address, _idcliente)
             cursor.execute(sqlQuery, bindData)
             conn.commit()
             response = jsonify('Address Updated!')
@@ -120,8 +122,6 @@ def delete_address(id_address):
 	finally:
 		cursor.close() 
 		conn.close()
-    
-
 
 
 @app.errorhandler(404)
@@ -135,6 +135,6 @@ def showMessage(error=None):
     return response
 
 
-    
+
 if __name__ == "__main__":
     app.run(debug=True)
