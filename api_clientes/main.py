@@ -123,9 +123,10 @@ def delete(id):
 def client_address(id):
     
     r = requests.get('http://127.0.0.1:5001/address', auth=('admin', '123'))
-   
+    
     text = r.text
     data =json.loads(text)
+    
     
     lista = []
     for endereco in data:
@@ -143,7 +144,7 @@ def client_address(id):
         print(e)
     finally:
         cursor.close()
-        conn.close()
+        conn.close() 
    
 
 @app.errorhandler(404)
