@@ -102,22 +102,6 @@ def update_cliente():
         cursor.close() 
         conn.close() 
 
-@app.route('/delete/<int:id>', methods=['DELETE'])
-@auth_required
-def delete(id):
-	try:
-		conn = mysql.connect()
-		cursor = conn.cursor()
-		cursor.execute("DELETE FROM cliente WHERE id =%s", (id,))
-		conn.commit()
-		response = jsonify('Client deleted successfully!')
-		return response
-	except Exception as e:
-		print(e)
-	finally:
-		cursor.close() 
-		conn.close()
-
 
 @app.route('/cliente/address/<int:id>')
 def client_address(id):
@@ -145,6 +129,34 @@ def client_address(id):
     finally:
         cursor.close()
         conn.close() 
+        
+        
+        
+@app.route('/delete/<int:id>', methods=['DELETE'])
+@auth_required
+def delete(id):
+    
+    r = requests.get('http://127.0.0.1:5001/address', auth=('admin', '123'))
+    
+    text = r.text
+    data =json.loads(text)
+    lista = []
+    for endereco in data:
+        if endereco['idcliente'] == id:
+                lista.append(endereco)
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM cliente WHERE id =%s", (id,))
+            conn.commit()
+            response = jsonify('Client deleted successfully!')
+            r = requests.delete('http://127.0.0.1:5001/address', auth=('admin', '123'))
+            return response
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close() 
+            conn.close()
    
 
 @app.errorhandler(404)
