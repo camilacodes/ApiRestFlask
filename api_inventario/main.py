@@ -9,7 +9,7 @@ from flask import request
 
 @app.route('/create_inventory', methods =['POST'])
 @auth_required
-def create_products():
+def create_inventory():
     try:
         _json = request.json
         _name_inventory = _json['_name_inventory']
@@ -36,7 +36,7 @@ def create_products():
         
 @app.route('/inventory') 
 @auth_required
-def products():
+def inventory():
     try:  
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -53,7 +53,7 @@ def products():
 
 @app.route('/inventory/<int:id_inventory>')
 @auth_required
-def product_detail(id_inventory):
+def inventory_detail(id_inventory):
     try:  
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -68,9 +68,9 @@ def product_detail(id_inventory):
         cursor.close()
         conn.close()
 
-@app.route('/update_products', methods=['PUT'])
+@app.route('/update_inventory', methods=['PUT'])
 @auth_required
-def update_product():
+def update_inventory():
     try:
         _json = request.json
         _id_inventory = _json['id_inventory']
@@ -98,7 +98,7 @@ def update_product():
 
 @app.route('/delete_inventory/<int:id_inventory>', methods=['DELETE'])
 @auth_required
-def delete_product(id_inventory):
+def delete_inventory(id_inventory):
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor()
