@@ -111,7 +111,6 @@ def client_address(id):
     text = r.text
     data =json.loads(text)
     
-    
     lista = []
     for endereco in data:
         if endereco['idcliente'] == id:
@@ -136,14 +135,8 @@ def client_address(id):
 @auth_required
 def delete(id):
     
-    r = requests.get('http://127.0.0.1:5001/address', auth=('admin', '123'))
+        r = requests.get('http://127.0.0.1:5001/address', auth=('admin', '123'))
     
-    text = r.text
-    data =json.loads(text)
-    lista = []
-    for endereco in data:
-        if endereco['idcliente'] == id:
-                lista.append(endereco)
         try:
             conn = mysql.connect()
             cursor = conn.cursor()

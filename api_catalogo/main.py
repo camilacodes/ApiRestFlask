@@ -42,7 +42,7 @@ def products():
     try:  
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT * FROM products")
+        cursor.execute("SELECT id_produto, prod_1, prod_2, prod_3, prod_4, prod_5 FROM products")
         cliRow = cursor.fetchall()  
         response = jsonify(cliRow)
         response.status_code == 200
