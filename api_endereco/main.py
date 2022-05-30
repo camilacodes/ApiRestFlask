@@ -87,11 +87,11 @@ def update_address():
         _number = _json['number']
         _city = _json['city']
         _country = _json['country']
-        _idcliente  = _json['idcliente']
-        if _street and _number and _city and _country and _id_address and request.method == 'PUT':
+        _idcliente =  _json['idcliente']
+        if _street and _number and _city and _country and _id_address and _idcliente and request.method == 'PUT':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            sqlQuery = "UPDATE address SET street=%s, number=%s, city=%s, country=%s idcliente=%s WHERE id_address=%s"
+            sqlQuery = "UPDATE address SET street=%s, number=%s, city=%s, country=%s WHERE id_address=%s"
             bindData = (_street, _number, _city, _country, _id_address, _idcliente)
             cursor.execute(sqlQuery, bindData)
             conn.commit()
@@ -113,7 +113,7 @@ def delete_address(id_address):
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor()
-		cursor.execute("DELETE FROM address WHERE id_address =%s", (id_address,))
+		cursor.execute("DELETE FROM address WHERE id_address =%s", (id_address))
 		conn.commit()
 		response = jsonify('Address deleted successfully!')
 		return response

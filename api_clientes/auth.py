@@ -15,18 +15,6 @@ def auth_required(f):
         return make_response('Deu ruim!', 401, {'WWW-Authenticate': 'Basic realm="Login necessário"'})
     return decorated
 
-@app.route('/auth')
-def index():
-    if request.authorization and request.authorization.username == 'admin' and request.authorization.password == '123':
-        return 'Logado!'
-    
-    return make_response('errouuuuuu!', 401, {'WWW-Authenticate': 'Basic realm="Login necessário"'})
-
-@app.route('/page')
-@auth_required
-def page():
-    return 'You are on the page'
-    
 
 
 if __name__ == "__main__":

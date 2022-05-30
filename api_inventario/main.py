@@ -1,4 +1,3 @@
-from math import prod
 import pymysql
 import json
 import requests
@@ -8,21 +7,18 @@ from config import mysql
 from flask import jsonify
 from flask import request
 
-
-
-@app.route('/create_inventory', methods =['POST'])
+@app.route('/inventory', methods =['POST'])
 @auth_required
 def create_inventory():
     try:
         _json = request.json
-        _name_inventory = _json['name_inventory']
-        _idcliente_i =  _json['idcliente_i']
+        _idcliente_i = _json['idcliente_i']
         _idproduto_i = _json['idproduto_i']
-        if _name_inventory and _idcliente_i and _idproduto_i and request.method == 'POST':
+        if _idcliente_i and _idproduto_i and request.method == 'POST':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            sqlQuery = "INSERT INTO inventory(name_inventory, idcliente_i, idproduto_i) VALUES(%s,%s,%s)"
-            bindData = (_name_inventory, _idcliente_i, _idproduto_i)
+            sqlQuery = "INSERT INTO inventory(idcliente_i, idproduto_i) VALUES(%s,%s)"
+            bindData = (_idcliente_i, _idproduto_i)
             cursor.execute(sqlQuery, bindData)
             conn.commit()
             response = jsonify('Inventário Criado!')
@@ -54,13 +50,13 @@ def inventory():
         cursor.close()
         conn.close()
 
-@app.route('/inventory/<int:id_inventory>')
+@app.route('/inventory/<int:idinventory>')
 @auth_required
-def inventory_detail(id_inventory):
+def inventory_detail(idinventory):
     try:  
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT * FROM inventory WHERE id_inventory=%s", id_inventory)
+        cursor.execute("SELECT * FROM inventory WHERE idinventory=%s", idinventory)
         cliRow = cursor.fetchall()  
         response = jsonify(cliRow)
         response.status_code == 200
@@ -89,18 +85,16 @@ def inventory_client(idcliente_i):
     conn = mysql.connect()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute("SELECT idproduto_i FROM inventory WHERE idcliente_i = %s", idcliente_i)
+    
     ids = cursor.fetchall()  
-    listaid = []
     list = []
     for id in ids:
         idproduto = id['idproduto_i'] 
-        listaid.append(idproduto)
         
         r = requests.get('http://127.0.0.1:5002/products/'+str(idproduto), auth=('admin', '123'))
         products_text = r.text
         data =json.loads(products_text)
         list.append(data)
-        
     try:  
         response ={}
         conn = mysql.connect()
@@ -116,27 +110,23 @@ def inventory_client(idcliente_i):
     finally:
         cursor.close()
     conn.close()
-             
 
-
-
-@app.route('/update_inventory', methods=['PUT'])
+@app.route('/inventory', methods=['PUT'])
 @auth_required
 def update_inventory():
     try:
         _json = request.json
-        _id_inventory = _json['id_inventory']
-        _name_inventory = _json['_name_inventory']
-        _idcliente_i =  _json['_idcliente_i']
-        _idproduto_i = _json['_idproduto_i']
-        if _name_inventory and _idcliente_i and _idproduto_i and request.method == 'POST':
+        _idinventory = _json['idinventory']
+        _idcliente_i = _json['idcliente_i']
+        _idproduto_i = _json['idproduto_i']
+        if _idinventory and _idcliente_i and _idproduto_i and request.method == 'PUT':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            sqlQuery = "UPDATE inventory SET name_inventory=%s, idcliente_i=%s, idproduto_i=%s WHERE id_inventory=%s"
-            bindData = (_id_inventory, _name_inventory, _idcliente_i, _idproduto_i)
+            sqlQuery = "UPDATE inventory SET idcliente_i=%s, idproduto_i=%s WHERE idinventory=%s"
+            bindData = (_idcliente_i, _idproduto_i, _idinventory)
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            response = jsonify('Produto atualizado!')
+            response = jsonify('Inventário Updated!')
             response.status_code == 200
             return response
         else:
@@ -145,26 +135,25 @@ def update_inventory():
        reponse = jsonify({"Message": f"{e}"})
        return reponse
     finally:
-        cursor.close() 
-        conn.close() 
-                 
+         cursor.close() 
+         conn.close() 
 
 
-@app.route('/delete_inventory/<int:id_inventory>', methods=['DELETE'])
+@app.route('/delete_inventory/<int:idinventory>', methods=['DELETE'])
 @auth_required
-def delete_inventory(id_inventory):
-	try:
-		conn = mysql.connect()
-		cursor = conn.cursor()
-		cursor.execute("DELETE FROM inventory WHERE id_inventory =%s", (id_inventory))
-		conn.commit()
-		response = jsonify('Invetory deleted successfully!')
-		return response
-	except Exception as e:
-		print(e)
-	finally:
-		cursor.close() 
-		conn.close()
+def delete_inventory(idinventory):
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM inventory WHERE idinventory=%s", (idinventory))
+        conn.commit()
+        response = jsonify('Deletado com sucesso')
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close() 
+        conn.close()
 
    
 @app.errorhandler(404)
@@ -175,8 +164,6 @@ def showMessage(error=None):
     }
     response = jsonify(message)
     return response
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -9,7 +9,7 @@ from flask import request
 from validation import *
 
 
-@app.route('/create', methods =['POST'])
+@app.route('/cliente', methods =['POST'])
 @auth_required
 def create_cliente():
     try:
@@ -72,7 +72,7 @@ def cliente_detail(id):
         cursor.close()
         conn.close()
 
-@app.route('/update', methods=['PUT'])
+@app.route('/cliente', methods=['PUT'])
 @auth_required
 def update_cliente():
     try:
@@ -104,6 +104,7 @@ def update_cliente():
 
 
 @app.route('/cliente/address/<int:id>')
+@auth_required
 def client_address(id):
     
     r = requests.get('http://127.0.0.1:5001/address', auth=('admin', '123'))
@@ -130,26 +131,24 @@ def client_address(id):
         conn.close() 
         
         
-        
-@app.route('/delete/<int:id>', methods=['DELETE'])
+@app.route('/cliente/<int:id>', methods=['DELETE'])
 @auth_required
-def delete(id):
+def delete_client(id): 
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM cliente WHERE id =%s",(id))
+        cursor.execute("DELETE FROM address WHERE idcliente =%s", (id))
+        conn.commit()
+        response = jsonify('Client deleted successfully!')
+        response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close() 
     
-        r = requests.get('http://127.0.0.1:5001/address', auth=('admin', '123'))
-    
-        try:
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            cursor.execute("DELETE FROM cliente WHERE id =%s", (id,))
-            conn.commit()
-            response = jsonify('Client deleted successfully!')
-            r = requests.delete('http://127.0.0.1:5001/address', auth=('admin', '123'))
-            return response
-        except Exception as e:
-            print(e)
-        finally:
-            cursor.close() 
-            conn.close()
    
 
 @app.errorhandler(404)
