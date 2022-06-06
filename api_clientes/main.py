@@ -1,8 +1,8 @@
+from app import app
 import pymysql
 import json
 import requests
 from auth import auth_required
-from app import app
 from config import mysql
 from flask import jsonify
 from flask import request

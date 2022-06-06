@@ -22,10 +22,7 @@ def index():
     
     return make_response('errouuuuuu!', 401, {'WWW-Authenticate': 'Basic realm="Login necessário"'})
 
-@app.route('/page')
-@auth_required
-def page():
-    return 'You are on the page'
+
     
 
 
