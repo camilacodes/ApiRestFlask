@@ -1,0 +1,21 @@
+### Passo a passo:
+No diretório onde será criada cada API deve ser feito:
+- Criar um abiente virtual:
+```
+python3 -m venv venv
+```
+- Ativar ambiente virtual:
+```
+. venv/bin/activate
+```
+- Instalar módulos Flask:
+```
+pip install Flask flask-mysql requests
+pip install pymysql
+```
+- Para rodar a aplicação:
+```
+export FLASK_ENV=development
+export FLASK_APP=main
+flask run -p 5000 (cada API roda em um porta diferente)
+```
