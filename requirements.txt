@@ -1,4 +1,4 @@
-sudo apt install python3-pip 
+
 pip install flask 
 pip install flask-mysql
 pip install pymysql 
