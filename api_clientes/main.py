@@ -32,7 +32,7 @@ def create_cliente():
         else:
             return showMessage()
     except Exception as e:
-       reponse = jsonify({"Message": f"{e}"})
+       response = jsonify({"Message": f"{e}"})
        return response
     finally:
         cursor.close() 
