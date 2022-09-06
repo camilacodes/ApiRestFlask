@@ -26,6 +26,7 @@ export FLASK_ENV=development
 export FLASK_APP=main
 flask run -p 5000 (cada API roda em um porta diferente)
 ```
+![image](https://user-images.githubusercontent.com/66393807/188679494-95f5b313-503c-4df9-a3d2-86b54d343f10.png)
 
 ## Banco de dados e Schemas
 Para a construção do nosso banco de dados optamos por criar um banco para
