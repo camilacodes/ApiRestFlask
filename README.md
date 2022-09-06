@@ -1,3 +1,4 @@
+[Documentação.docx](https://github.com/camilacodes/ApiRestFlask/files/9498677/Documentacao.docx)
 
 ## 🛠 Tools
 
