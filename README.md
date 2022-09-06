@@ -36,6 +36,7 @@ Utilizamos MySQL e a biblioteca Pymysql, separamos em quatro banco de
 dados:]
 
 - Banco Clientes: Contém uma tabela nomeada Cadastro, uma chave primária sendo ela o ID. Nela são armazenados os dados pessoais dos clientes cadastrados.
+
 ![image](https://user-images.githubusercontent.com/66393807/188679494-95f5b313-503c-4df9-a3d2-86b54d343f10.png)
 
 - Banco Endereços: Contendo uma tabela nomeada Endereço, com uma chave primária sendo ela o ID e um campo “id_cliente” que seria um campo utilizado para conectar o cliente cadastrado aos seus endereços, sendo um ou mais.
