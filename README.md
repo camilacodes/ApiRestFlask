@@ -1,4 +1,5 @@
-[Documentação.docx](https://github.com/camilacodes/ApiRestFlask/files/9498677/Documentacao.docx)
+
+[Microsserviços.docx.pdf](https://github.com/camilacodes/ApiRestFlask/files/9498708/Microsservicos.docx.pdf)
 
 ## 🛠 Tools
 
@@ -54,7 +55,6 @@ os parâmetros de acesso: login e senha, uma resposta de erro caso o usuário
 erre a senha e o tipo de autenticação. Em cada verbo HTTP das aplicações do
 nosso microsserviço passamos o request de autorização de acesso.
 
-## ![image](https://user-images.githubusercontent.com/66393807/188679835-187b839d-aace-4894-883b-e26c3dd08b28.png)
 
 ## API gateway
 Ainda pensando na arquitetura de microsserviços criamos um exemplo de uma
@@ -63,4 +63,4 @@ segurança através de autenticações e também para os serviços de back-end
 que alimentam as APIs, também sendo possível rastrear acessos e criar
 análises de dados.
 
-![image](https://user-images.githubusercontent.com/66393807/188680042-86ca76df-e7fb-4b51-a9dc-a4009575934f.png)
+
