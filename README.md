@@ -36,12 +36,18 @@ Utilizamos MySQL e a biblioteca Pymysql, separamos em quatro banco de
 dados:]
 
 - Banco Clientes: Contém uma tabela nomeada Cadastro, uma chave primária sendo ela o ID. Nela são armazenados os dados pessoais dos clientes cadastrados.
+![image](https://user-images.githubusercontent.com/66393807/188679494-95f5b313-503c-4df9-a3d2-86b54d343f10.png)
 
 - Banco Endereços: Contendo uma tabela nomeada Endereço, com uma chave primária sendo ela o ID e um campo “id_cliente” que seria um campo utilizado para conectar o cliente cadastrado aos seus endereços, sendo um ou mais.
+![image](https://user-images.githubusercontent.com/66393807/188679548-3a092ce5-c504-4421-9171-4c5b012ab92b.png)
 
 - Banco Catalogo_produtos:Contendo uma tabela nomeada Catálogo contendo com chave primária o id. Aqui são armazenados os produtos comercializados pela empresa.
 
+![image](https://user-images.githubusercontent.com/66393807/188679665-f7ddbb99-fbd2-4526-acc1-6cf5c22dae7f.png)
+
 - Banco Inventário_Produtos: Contendo uma chave primária sendo ela o id do inventário e esse banco contém um campo com id_produto e com id_cliente, correlacionando quais produtos determinado cliente adquiriu a partir do catálogo de produtos.
+
+![image](https://user-images.githubusercontent.com/66393807/188679745-d380cc73-f0b2-43e4-8f0f-67d0f3ea2ebe.png)
 
 ## Autenticação - Basic Auth
 
@@ -50,9 +56,13 @@ os parâmetros de acesso: login e senha, uma resposta de erro caso o usuário
 erre a senha e o tipo de autenticação. Em cada verbo HTTP das aplicações do
 nosso microsserviço passamos o request de autorização de acesso.
 
+![image](https://user-images.githubusercontent.com/66393807/188679835-187b839d-aace-4894-883b-e26c3dd08b28.png)
+
 ## API gateway
 Ainda pensando na arquitetura de microsserviços criamos um exemplo de uma
 API Gateway que poderia ajudar na performance da nossa aplicação, na
 segurança através de autenticações e também para os serviços de back-end
 que alimentam as APIs, também sendo possível rastrear acessos e criar
 análises de dados.
+
+![image](https://user-images.githubusercontent.com/66393807/188680042-86ca76df-e7fb-4b51-a9dc-a4009575934f.png)
