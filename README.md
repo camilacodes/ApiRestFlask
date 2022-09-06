@@ -5,7 +5,6 @@ WSL(Subsistema Windows para Linux), Python como linguagem, a biblioteca
 HTTP Requests, o sistema de gerenciamento de banco de dados MySQL e o
 microframework Flask.
 
-
 ## Passo a passo:
 No diretório onde será criada cada API deve ser feito:
 - Criar um abiente virtual:
@@ -28,15 +27,13 @@ export FLASK_APP=main
 flask run -p 5000 (cada API roda em um porta diferente)
 ```
 
-
 ## Banco de dados e Schemas
 Para a construção do nosso banco de dados optamos por criar um banco para
 cada API pensando na arquitetura de microsserviços, onde cada serviço é
 independente e autônomo.
 
-
 Utilizamos MySQL e a biblioteca Pymysql, separamos em quatro banco de
-dados:
+dados:]
 
 - Banco Clientes: Contém uma tabela nomeada Cadastro, uma chave primária sendo ela o ID. Nela são armazenados os dados pessoais dos clientes cadastrados.
 
