@@ -1,0 +1,10 @@
+resources:
+- cliente-pod.yaml
+- endereco-pod.yaml
+- inventario-pod.yaml
+- catalogo-pod.yaml
+- cliente-service.yaml
+- endereco-service.yaml
+- inventario-service.yaml
+- catalogo-service.yaml
+- ingress.yaml

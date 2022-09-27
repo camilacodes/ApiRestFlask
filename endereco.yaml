@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  nome: endereco
+  labels:
+    app: endereco
+spec:
+  containers:
+  - name: endereco
+    image: camilafigueira/endereco:1.0
+    ports:
+    - containerPort: 5001

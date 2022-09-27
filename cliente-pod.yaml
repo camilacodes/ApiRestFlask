@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  nome: cliente
+  labels:
+    app: cliente
+spec:
+  containers:
+  - name: cliente
+    image: camilafigueira/api-clientes:1.0
+    ports:
+    - containerPort: 5000

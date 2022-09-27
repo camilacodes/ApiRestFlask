@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations: kubernertes.io/ingress.class: nginx
+spec:
+  rules: 
+  - http:
+    paths:
+    - path: /cliente
+      pathType: Prefix
+      backend:
+        service:
+          name: cliente-service
+          port:
+            number: 80
+    - path: /endereco
+      pathType: Prefix
+      backend:
+        service:
+          name: endereco-service
+          port:
+            number: 80
+    - path: /catalogo
+      pathType: Prefix
+      backend:
+        service:
+          name: catalogo-service
+          port:
+            number: 80
+    - path: /inventario
+      pathType: Prefix
+      backend:
+        service:
+          name: inventario-service
+          port:
+            number: 80
+

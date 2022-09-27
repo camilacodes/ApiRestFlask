@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  nome: inventario
+  labels:
+    app: inventario
+spec:
+  containers:
+  - name: inventario
+    image: camilafigueira/inventario:1.0
+    ports:
+    - containerPort: 5002
